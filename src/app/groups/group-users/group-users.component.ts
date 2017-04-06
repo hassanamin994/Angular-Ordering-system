@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input, EventEmitter} from '@angular/core';
+import { NewGroupUsersService } from '../../new-group-users.service';
 @Component({
   selector: 'app-group-users',
   templateUrl: './group-users.component.html',
-  styleUrls: ['./group-users.component.css']
+  styleUrls: ['./group-users.component.css'],
 })
 export class GroupUsersComponent implements OnInit {
-  users = [
-  	{name:"user 1 ", image:"", id: 1},
-   	{name:"user 2 ", image:"", id: 2},
-   	{name:"user 3 ", image:"", id: 3},
-   	{name:"user 4 ", image:"", id: 4}
-  ]
-  constructor() { }
+  @Input() title: string; 
+  @Input() buttonName: string;
+  constructor(private groupUserService: NewGroupUsersService) { }
 
   ngOnInit() {
   }
   addUser(user: any){
-  	this.users.push({ name:user.value, image:"", id:5 })
+    let userObj = { name:user.value, image:"", id:Math.random()*10 };
+  	this.groupUserService.addUser(userObj);
+  }
+
+  keyDown(user: any){
+    
+    // search for friends on key down
+    user = user.value.trim() ;
+    if(user.length != 0 ){
+      console.log(user);
+      this.groupUserService.keyDown(user);
+    }
   }
 }

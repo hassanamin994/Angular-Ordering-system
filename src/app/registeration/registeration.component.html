@@ -12,10 +12,10 @@
 		</div>
 		<div class="form-group">
 		  <label for="email">Email:</label>
-		  <input type="email" name='email' class="form-control" id="email" #email="ngModel" [(ngModel)]="user.email" required >
+		  <input type="text" pattern="(.)+@(.)+\.(.)+" name='email' class="form-control" id="email" #email="ngModel"  [(ngModel)]="user.email" required >
 		  <div [hidden]=" email.valid || email.untouched "
 	             class="alert alert-danger">
-	          Email is required
+	          Invalid Email!
 	       </div>
 		</div>
 		
@@ -44,9 +44,16 @@
 		<div class="form-group">
 			<a href="#">Fogot your password?</a>
 		</div>
-
+		<div>
+			<ul>
+				<li *ngFor="let error of errors">{{error}}</li>
+			</ul>
+		</div>
+		<div>
+			{{success_message}}
+		</div>
 		<div class="form-group">
-			<input type="submit" name="submit" class='btn btn-success' value="Register" [disabled]="">
+			<input type="submit" name="submit" class='btn btn-success' value="Register" [disabled]="!registerationFrom.valid">
 		</div>
 
 	</form>

@@ -1,8 +1,18 @@
+<h1>Groups</h1>
+<div class="row">
+	<label for="new-group">Group Name </label>
+	<input type="text" name="new-group" [(ngModel)]="groupName" id='new-group'>
+	<button (click)="addGroup()"class='btn btn-warning'>Add</button><br>
+	<ul>
+		<li [hidden]="validGroupName"><span class="label label-danger">Group name cannot be emtpy!</span></li>
+		<li [hidden]="validFriendList"><span class="label label-danger">Group list must contain at least one friend!</span></li>
+	</ul>
+</div>
 <div class="row">
 	<div class="col-xs-4">
 		<app-groups-list></app-groups-list>
 	</div>
 	<div class="col-xs-8">
-		<app-group-users></app-group-users>
+		<app-group-users [title]="usersGroupTitle" [buttonName] = "usersGroupButton"></app-group-users>
 	</div>
 </div>	

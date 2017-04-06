@@ -1,23 +1,26 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NewGroupUsersService } from '../new-group-users.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit {
-  @Input() users = []
-  constructor() { }
+  users: Array<any> = [];
+  @Input() buttonName: string ; 
+  constructor(private groupUserService: NewGroupUsersService) { }
 
   ngOnInit() {
-  }
-
-  removeUser(id: number){
-  	for(var i = 0; i<this.users.length; i++ ){
-  		if(this.users[i].id == id ){
-  			this.users.splice(i,1);
-  		}
-  	}
+    this.groupUserService.pushedUsers.subscribe(
+        (user) => {
+          this.users = this.groupUserService.users;
+        }
+      );
+    this.groupUserService.removedUsers.subscribe(
+        (id: number) => {
+          this.users = this.groupUserService.users;
+        }
+      );
   }
 
 }
