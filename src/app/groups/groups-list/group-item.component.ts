@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { LocalstorageService } from '../../localstorage.service';
+import { GroupsService } from '../groups.service';
 
 @Component({
   selector: 'app-group-item',
@@ -7,7 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GroupItemComponent implements OnInit {
   @Input() group : any ; 
-  constructor() { }
+  @Input() hiddenControls: boolean = true ;
+  constructor(private groupService: GroupsService, private localStorageService: LocalstorageService) { }
 
   ngOnInit() {
   }
@@ -16,6 +19,12 @@ export class GroupItemComponent implements OnInit {
     console.log('edit/view',g)
   }
   deleteGroup(g: number){
-  	console.log('delete',g);
+  	this.groupService.deleteGroup(g).subscribe(
+        (response:any )=> {
+          console.log(response);
+        }
+      );
+    this.groupService.refreshGroups.emit(1);
   }
+
 }
