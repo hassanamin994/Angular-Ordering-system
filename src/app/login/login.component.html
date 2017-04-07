@@ -1,27 +1,29 @@
 <div class="container">
-	<form (ngSubmit)="onSubmit()" >
+	<form (ngSubmit)="onSubmit()" #f >
 		<h1 class='text-center'>Yalla Notlob</h1>
 		
 		<div class="form-group">
-		  <label for="usr">Username:</label>
-		  <input type="text" class="form-control" name='username' [(ngModel)]="username" id="username" required>
+		  <label for="usr">Email:</label>
+		  <input type="text" pattern="(.)+@(.)+\.(.)+" class="form-control" name='username' [(ngModel)]="email" id="email" required >
 		</div>
 		
 		<div class="form-group">
 		  <label for="usr">Password:</label>
-		  <input type="password" class="form-control" name='password' [(ngModel)]="password" id="password" required>
+		  <input type="password" class="form-control" name='password' [(ngModel)]="password" id="password" required >
 		</div>
-
-		<div class="form-group">
-			<img src="assets/images/loginfacebook.png" #fb (click)="loginFacebook(fb)" style="width:200px;cursor:pointer;" >
+		<div [hidden]="error">
+			Invalid username or password!
 		</div>
-		
 		<div class="form-group">
-			<img src="assets/images/logingoogle.png" #g (click)="loginGoogle(g)" style="width:200px;cursor:pointer" >
+			<img src="assets/images/loginfacebook.png" #fb (click)="loginFacebook()" style="width:200px;cursor:pointer;" >
 		</div>
 		
 		<div class="form-group">
-			<a routerLinkActive="active" routerLink="/registration" >New user? register here</a>
+			<img src="assets/images/logingoogle.png" #g (click)="loginGoogle()" style="width:200px;cursor:pointer" >
+		</div>
+		
+		<div class="form-group">
+			<a routerLink="/registration" >New user? register here</a>
 		</div>
 		
 		<div class="form-group">
@@ -29,7 +31,7 @@
 		</div>
 
 		<div class="form-group">
-			<input type="submit" name="submit" class='btn btn-success' value="Login">
+			<input type="submit" name="submit" class='btn btn-success' value="Login" >
 		</div>
 
 	</form>

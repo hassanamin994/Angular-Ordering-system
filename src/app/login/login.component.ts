@@ -1,28 +1,66 @@
 import { Component, OnInit } from '@angular/core';
-
+import { LoginService } from './login.service';
+import { LocalstorageService } from   '../localstorage.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
-  username: string ;
-  password: string ; 
+  email: string = "";
+  password: string = ""; 
   form: any;
-  constructor() { }
+  error = true;
+  constructor(private loginService: LoginService, private localstrg: LocalstorageService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmit(form: any){
-  	console.log('submitted',this.form);
+  	if(this.email.length != 0 && this.validateEmail(this.email) && this.password.length != 0){
+      this.loginService.login(this.email, this.password).subscribe(
+          (response: any) => {
+            console.log(response);  
+            this.error = response.loggedIn 
+            if(response.loggedIn){
+              this.localstrg.setAccessToken(response.access_token);
+              this.localstrg.setData(response.data);
+              this.router.navigate(['/friends'])
+            }
+
+          }
+
+        );
+    }
   }
-  loginFacebook(input: any){
+
+  loginFacebook(){
     console.log('login facebook', );
 
   }
-  loginGoogle(input: any){
+
+  loginGoogle(){
     console.log('login facebook', );
 
   }
+
+  emailValidator(email) {
+      var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      return re.test(email);
+  }
+
+  validateEmail(email){
+    if(!this.emailValidator(email)){
+      console.log('false');
+      return false ;
+    }else{
+      console.log('true');
+      return true;
+    }
+  }
+
+
 }
+
