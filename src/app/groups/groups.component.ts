@@ -13,33 +13,48 @@ export class GroupsComponent implements OnInit {
   groupName: string = "";
   validGroupName: boolean = true ; 
   validFriendList: boolean = true ;
-
+  friendsList = []  ;
   constructor(private groupUsersService: NewGroupUsersService, private groupService: GroupsService) { }
 
   ngOnInit() {
+    this.groupService.getGroups().subscribe(
 
+      (data: any) => console.log(data)
+
+      );
+    this.groupService.getFriends().subscribe(
+
+        (friends: any) => console.log(friends)
+
+      );
   }
   addGroup(){
   	this.groupName = this.groupName.trim();
 
-  	// check if users array has no members 
- 	if(this.groupUsersService.users.length == 0 ){
- 		console.log("Enter at least one friend");
- 		this.validFriendList = false ;
- 	}else{
- 		this.validFriendList = true ;
- 	}
- 	
-  	// check if group name is empty 
- 	if(this.groupName.length == 0){
- 		this.validGroupName = false ;
- 	}else{
- 		this.validGroupName = true ;
- 	}
-	
-	if(this.validGroupName && this.validFriendList){
-		this.groupService.addGroup(this.groupName, this.groupUsersService.users);
-	}
+    	// check if users array has no members 
+   	if(this.groupUsersService.users.length == 0 ){
+   		console.log("Enter at least one friend");
+   		this.validFriendList = false ;
+   	}else{
+   		this.validFriendList = true ;
+   	}
+   	
+    	// check if group name is empty 
+   	if(this.groupName.length == 0){
+   		this.validGroupName = false ;
+   	}else{
+   		this.validGroupName = true ;
+   	}
+  	
+  	if(this.validGroupName && this.validFriendList){
+      let groupObj = {group_name: this.groupName, members: this.groupUsersService.getUsersIds()}
+      console.log(groupObj);
+  		this.groupService.addGroup(groupObj).subscribe(
+         (response: any) => {
+           console.log(response);
+         }
+        );
+  	}
   }
 
 }
