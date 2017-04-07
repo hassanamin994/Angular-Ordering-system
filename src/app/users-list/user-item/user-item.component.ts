@@ -15,7 +15,7 @@ export class UserItemComponent implements OnInit {
   }
 
   removeUser(id: number){
-  	this.groupUserService.removeUser(id);
+  	this.groupUserService.removeUser(this.user._id);
   }
 
 }

@@ -21,6 +21,11 @@ export class UsersListComponent implements OnInit {
           this.users = this.groupUserService.users;
         }
       );
+    this.groupUserService.refreshUsers.subscribe(
+        (id: number) => {
+          this.users = this.groupUserService.users;
+        }
+      );
   }
 
 }

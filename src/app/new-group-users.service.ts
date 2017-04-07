@@ -6,15 +6,27 @@ export class NewGroupUsersService {
   pushedUsers = new EventEmitter<Object>() ;
   removedUsers = new EventEmitter<Object>() ;
   searchUser = new EventEmitter<Object>() ;
+  refreshUsers = new EventEmitter<any>();
   constructor() { }
-  addUser(user: Object){
-  	this.users.push(user);
+  addUser(user: any){
+  	for(let i = 0; i<this.users.length; i++){
+      if(this.users[i].id == user.id){
+        return
+      }
+    }
+
+    this.users.push(user);
   	this.pushedUsers.emit(user);
+
     // console.log(this.users);
+  }
+  setUsers(users: any){
+    this.users = users ;
+    this.refreshUsers.emit(1);
   }
   removeUser(id: number){
   	for(var i = 0; i<this.users.length; i++ ){
-  		if(this.users[i].id == id ){
+  		if(this.users[i]._id == id ){
   			this.users.splice(i,1);
   		}
   	}

@@ -11,35 +11,34 @@ import { NewGroupUsersService } from '../new-group-users.service';
 export class FriendsComponent implements OnInit {
   usersGroupTitle: string = "Your Friend Name";
   usersGroupButton: string = "unfriend";
-  allUsers = [] 
-  myFriends = [] ; 
+  allFriends = [] 
   constructor(private friendsService: FriendsService, private usersService: UsersService,private groupUsersService: NewGroupUsersService) { }
 
   ngOnInit() {
   	this.friendsService.getFriends().subscribe(
   		(friends: any) => {
-  			console.log(friends);
+        this.groupUsersService.setUsers(friends.friends.friends); 
   		}
 
   		);
   	this.usersService.getUsers().subscribe(
   		(users: any) => {
-      	this.allUsers=users;
+      	this.allFriends=users;
         // console.log(users);
   		}
 
   		);
 
-      // this.groupUsersService.removedUsers.subscribe(
-      //     (id: any) => {
-      //       console.log(id); 
-      //       this.friendsService.removeFriend(id).subscribe(
-      //           (response: any)=>{
-      //             console.log(response);
-      //           }
-      //         );           
-      //     }
-      //   );
+      this.groupUsersService.removedUsers.subscribe(
+          (id: any) => {
+            console.log(id); 
+            this.friendsService.removeFriend(id).subscribe(
+                (response: any)=>{
+                  console.log(response);
+                }
+              );           
+          }
+        );
       this.groupUsersService.pushedUsers.subscribe(
           (user: any) => {
             // add to friends by id 

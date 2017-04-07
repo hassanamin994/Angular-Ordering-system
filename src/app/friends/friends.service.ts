@@ -24,16 +24,17 @@ export class FriendsService {
   }
   
   addFriend(friend: any){
-    return this.http.put(this.apiRouter.getFriendsRoute(),{friendID:friend}, this.options)
+    return this.http.put(this.apiRouter.getFriendsRoute()+"/"+friend,{}, this.options)
             .map(
                 (response: Response) => response.json() 
               );
   }
   removeFriend(friend: any){
-        // return this.http.delete(this.apiRouter.getFriendsRoute(),{friendID:friend}, this.options)
-        //     .map(
-        //         (response: Response) => response.json() 
-        //       );
+    console.log(this.apiRouter.getFriendsRoute()+"/"+friend);
+        return this.http.delete(this.apiRouter.getFriendsRoute()+"/"+friend, this.options)
+            .map(
+                (response: Response) => response.json() 
+              );
   }
   
 }

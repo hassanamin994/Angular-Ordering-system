@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsService } from './groups.service';
 import { NewGroupUsersService } from '../new-group-users.service';
+import { FriendsService } from '../friends/friends.service';
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.css'],
-  providers:[GroupsService, NewGroupUsersService]
+  providers:[GroupsService, NewGroupUsersService, FriendsService]
 })
 export class GroupsComponent implements OnInit {
   usersGroupTitle: string = "Your Friend Name";
@@ -14,7 +15,7 @@ export class GroupsComponent implements OnInit {
   validGroupName: boolean = true ; 
   validFriendList: boolean = true ;
   friendsList = []  ;
-  constructor(private groupUsersService: NewGroupUsersService, private groupService: GroupsService) { }
+  constructor(private groupUsersService: NewGroupUsersService, private groupService: GroupsService, private friendsService: FriendsService) { }
 
   ngOnInit() {
     this.groupService.getGroups().subscribe(
@@ -22,9 +23,9 @@ export class GroupsComponent implements OnInit {
       (data: any) => console.log(data)
 
       );
-    this.groupService.getFriends().subscribe(
+    this.friendsService.getFriends().subscribe(
 
-        (friends: any) => console.log(friends)
+        (friends: any) => this.friendsList = friends.friends.friends 
 
       );
   }

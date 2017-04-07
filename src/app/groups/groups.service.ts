@@ -34,11 +34,4 @@ export class GroupsService {
   updateGroup(id: number, name: string, members: Array<Object>){
   	return ;
   }
-
-  getFriends(){
-    return this.http.get(this.apiRouter.getFriendsRoute())
-            .map(
-                (response: Response) => response.json() 
-              );
-  }
 }
