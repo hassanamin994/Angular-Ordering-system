@@ -53,6 +53,7 @@ export class GroupsComponent implements OnInit {
   		this.groupService.addGroup(groupObj).subscribe(
          (response: any) => {
            console.log(response);
+           this.groupService.refreshGroups.emit(1);
          }
         );
   	}

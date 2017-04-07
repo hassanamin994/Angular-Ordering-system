@@ -20,11 +20,13 @@ export class GroupItemComponent implements OnInit {
   }
   deleteGroup(g: number){
   	this.groupService.deleteGroup(g).subscribe(
-        (response:any )=> {
-          console.log(response);
+      (response:any )=> {
+        console.log(response);
+        if(response.status){
+          this.groupService.refreshGroups.emit(1);
         }
-      );
-    this.groupService.refreshGroups.emit(1);
+      }
+    );
   }
 
 }
