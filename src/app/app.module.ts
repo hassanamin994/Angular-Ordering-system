@@ -17,9 +17,15 @@ import { UserItemComponent } from './users-list/user-item/user-item.component';
 import { ApiRouterService } from './api-router.service';
 import { LocalstorageService } from './localstorage.service';
 import { FriendsComponent } from './friends/friends.component';
-import { NewGroupUsersService } from './new-group-users.service';  
+import { NewGroupUsersService } from './new-group-users.service';
+import { HomeComponent } from './home/home.component';
+import { LastOrdersListComponent } from './home/last-orders-list/last-orders-list.component';
+import { ActivitiesListComponent } from './home/activities-list/activities-list.component';
+import { LastOrderComponent } from './home/last-orders-list/last-order/last-order.component';
+import { ActivityComponent } from './home/activities-list/activity/activity.component';
 
 const appRoutes: Routes = [
+  { 'path':'home', component: HomeComponent },
   { 'path':'login', component: LoginComponent },
   { 'path':'registration', component: RegisterationComponent },
   { 'path':'groups', component: GroupsComponent },
@@ -40,6 +46,11 @@ const appRoutes: Routes = [
     GroupUsersComponent,
     UserItemComponent,
     FriendsComponent,
+    HomeComponent,
+    LastOrdersListComponent,
+    ActivitiesListComponent,
+    LastOrderComponent,
+    ActivityComponent,
   ],
   imports: [
     BrowserModule,
