@@ -14,6 +14,7 @@ export class UsersListComponent implements OnInit {
     this.groupUserService.pushedUsers.subscribe(
         (user) => {
           this.users = this.groupUserService.users;
+          console.log(this.users,'update add users')
         }
       );
     this.groupUserService.removedUsers.subscribe(

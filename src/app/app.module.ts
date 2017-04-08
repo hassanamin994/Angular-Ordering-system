@@ -17,13 +17,16 @@ import { UserItemComponent } from './users-list/user-item/user-item.component';
 import { ApiRouterService } from './api-router.service';
 import { LocalstorageService } from './localstorage.service';
 import { FriendsComponent } from './friends/friends.component';
-import { NewGroupUsersService } from './new-group-users.service';  
+import { NewGroupUsersService } from './new-group-users.service';
+import { OrdersComponent } from './orders/orders.component';
+import { AddOrderComponent } from './orders/add-order/add-order.component';  
 
 const appRoutes: Routes = [
   { 'path':'login', component: LoginComponent },
   { 'path':'registration', component: RegisterationComponent },
   { 'path':'groups', component: GroupsComponent },
   { 'path':'friends', component: FriendsComponent },
+  { 'path':'orders/add', component: AddOrderComponent },
   { 'path':'', redirectTo:'/login', pathMatch: "full" },
   { 'path':'**', redirectTo:'/login', pathMatch: "full" }
 ]
@@ -40,6 +43,8 @@ const appRoutes: Routes = [
     GroupUsersComponent,
     UserItemComponent,
     FriendsComponent,
+    OrdersComponent,
+    AddOrderComponent,
   ],
   imports: [
     BrowserModule,

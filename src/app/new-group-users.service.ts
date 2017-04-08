@@ -10,8 +10,9 @@ export class NewGroupUsersService {
   constructor() { }
   addUser(user: any){
   	for(let i = 0; i<this.users.length; i++){
-      if(this.users[i].id == user.id){
-        return
+      if(this.users[i].id == user._id){
+        console.log(this.users[i], ' new group user service ')
+        return; 
       }
     }
 
@@ -38,7 +39,7 @@ export class NewGroupUsersService {
   getUsersIds(){
     let usersArray = [] ;
     this.users.forEach(function(user){
-      usersArray.push(user.id);
+      usersArray.push(user._id);
     });
     return usersArray;
   }

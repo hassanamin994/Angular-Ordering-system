@@ -16,7 +16,7 @@ export class FriendsComponent implements OnInit {
 
   ngOnInit() {
   	this.friendsService.getFriends().subscribe(
-  		(friends: any) => {
+  		(friends: any) => {console.log(friends);
         this.groupUsersService.setUsers(friends.friends.friends); 
   		}
 
@@ -42,7 +42,8 @@ export class FriendsComponent implements OnInit {
       this.groupUsersService.pushedUsers.subscribe(
           (user: any) => {
             // add to friends by id 
-            this.friendsService.addFriend(user.id).subscribe(
+            console.log(user)
+            this.friendsService.addFriend(user._id).subscribe(
                 (response: any) =>{
                   console.log(response);
                 }

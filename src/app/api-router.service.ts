@@ -8,6 +8,7 @@ export class ApiRouterService {
 	} 
   private users = "http://localhost:8090/user"
   private groups = "http://localhost:8090/group";
+  private orders = "http://localhost:8090/order";
   constructor() { }
 
   private friends = "http://localhost:8090/friends"
@@ -28,5 +29,7 @@ export class ApiRouterService {
 	public getUsersRoute(){
 		return this.users;
 	}
-
+	public getOrdersRoute(){
+		return this.orders;
+	}
 }

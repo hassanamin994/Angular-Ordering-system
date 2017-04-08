@@ -22,10 +22,11 @@ export class GroupUsersComponent implements OnInit {
     for( let i = 0; i < this.usersSource.length ; i++ ){
       if(this.usersSource[i].email == user.value){
         selectedId = this.usersSource[i]._id ;
+        console.log(selectedId)
         // add selected image when implemented in backend 
       }
     }
-    let userObj = { name:user.value, image:selectedImg, id:selectedId };
+    let userObj = { name:user.value, image:selectedImg, _id:selectedId };
   	this.groupUserService.addUser(userObj);
   }
 
