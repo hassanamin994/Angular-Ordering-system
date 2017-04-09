@@ -25,6 +25,7 @@ import { LastOrderComponent } from './home/last-orders-list/last-order/last-orde
 import { ActivityComponent } from './home/activities-list/activity/activity.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AddOrderComponent } from './orders/add-order/add-order.component';
+import { FileToBase64Service } from './file-to-base64.service';
 
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent },
@@ -49,16 +50,13 @@ const appRoutes: Routes = [
     GroupUsersComponent,
     UserItemComponent,
     FriendsComponent,
-<<<<<<< HEAD
     OrdersComponent,
     AddOrderComponent,
-=======
     HomeComponent,
     LastOrdersListComponent,
     ActivitiesListComponent,
     LastOrderComponent,
     ActivityComponent,
->>>>>>> 153db62fdbd892808b480a25bd0d589ad352cd93
   ],
   imports: [
     BrowserModule,
@@ -66,7 +64,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ ApiRouterService, LocalstorageService , NewGroupUsersService],
+  providers: [ ApiRouterService, LocalstorageService , NewGroupUsersService, FileToBase64Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
