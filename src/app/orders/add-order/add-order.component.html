@@ -47,7 +47,7 @@
 				<div class="form-group">
 				    <label for="menu" class="control-label col-xs-2">Menu image</label>
 				    <div class="col-xs-10">
-				    	<input type="file" id="menu">
+				    	<input type="file" id="menu" #menu (change)="selectMenu(menu)">
 				   	 	<p class="help-block">Upload a picture for the menu.</p>
 				  	</div>	
 				</div>
