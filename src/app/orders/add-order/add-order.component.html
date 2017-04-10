@@ -5,11 +5,14 @@
 				<div class="form-group">
 				  <label for="type" class="control-label col-xs-2">Order for</label>
 				  <div class="col-xs-10">
-				  	<input list="types" class="form-control" [(ngModel)]="order.for" id="type" name="type">
+<!-- 				  	<input list="types" class="form-control" [(ngModel)]="order.for" id="type" name="type">
 					<datalist id="types">
 					  <option value="Lunch">
 					  <option value="Breakfast">
-					</datalist>
+					</datalist> -->
+					<select name="type" id="type" class="form-control" [(ngModel)]="order.for" >
+						<option *ngFor=" let type of types" [value]="type">{{type}}</option>
+					</select>					
 				  </div>
 				</div>
 				<div class="form-group">
@@ -68,7 +71,9 @@
 			</form>
 		</div>
 		<div class="col-xs-4">
-			
+			<div class="alert alert-success" [hidden]="successMessage == ''">
+			  <strong>Success!</strong> Indicates a successful or positive action.
+			</div>
 		</div>
 	</div>	
 </div>

@@ -23,6 +23,8 @@ export class AddOrderComponent implements OnInit {
 		invite: '',
 		members: ''		
 	}
+	types: Array<string> = ['Lunch','Breakfast'];
+	successMessage = '' ;
 	errors: Array<any> = [] ;
 	constructor(private fileToBase64Service: FileToBase64Service, private friendsService: FriendsService, private groupsService: GroupsService, private ordersService: OrdersService) {
 		this.fileToBase64Service.fileToBase64Event.subscribe(
@@ -88,21 +90,6 @@ export class AddOrderComponent implements OnInit {
 		else
 			this.errors.push("Only images with png, jpeg, jpg extensions are allowed");
 	}
-	getSelectedID(){
-		let selectedId ; 
-		if(this.order.invite == 'user'){
-			for( let i = 0 ; i < this.friendsList.length; i++ ){
-				if(this.order.members == this.friendsList[i].email)
-					selectedId =  this.friendsList[i]._id ;
-			}
-		}else{
-			for( let i = 0 ; i < this.groupsList.length; i++ ){
-				if(this.order.members == this.groupsList[i].name)
-					selectedId =  this.groupsList[i]._id ;
-			}				
-		}
-		return selectedId ;
-	}
 	onSubmit(){
 		// clear the errors array 
 		this.errors = [] ;
@@ -116,14 +103,12 @@ export class AddOrderComponent implements OnInit {
 		}
 
 		if(this.errors.length == 0 ){
-			// get the selected id for group or friend/user
-			let selectedId = this.getSelectedID();
 			// submit the form 
 			let orderObj = { 
 				name: this.order.for,
 				restaurant: this.order.resturantname,
 				invited_type: this.order.invite ,
-				invited_id: selectedId
+				invited_id: this.order.members
 			 }
 			console.log('order obj', orderObj);
 			this.ordersService.addOrder(JSON.stringify(orderObj)).subscribe(
@@ -131,7 +116,9 @@ export class AddOrderComponent implements OnInit {
 				console.log(response);
 				if(!response.status){
 					this.errors = response.errors ;
-				}
+				}else{
+					this.successMessage = response.order.name+' from ' + response.order.restaurant +" has been added successfully!";
+				}	
 			});
 		}
 
