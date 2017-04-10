@@ -12,9 +12,15 @@ import { FileToBase64Service } from '../../file-to-base64.service';
 export class AddOrderComponent implements OnInit {
 	friend: boolean = false ;
 	group: boolean = false ;
-
+	
 	friendsList: Array<any> = [] ;
 	groupsList: Array<any> = [] ;
+
+	types: Array<string> = ['Lunch','Breakfast'];
+	
+	successMessage:string = '' ;
+	errors: Array<any> = [] ;
+	
 
 	order = {
 		for: 'Lunch',
@@ -23,13 +29,9 @@ export class AddOrderComponent implements OnInit {
 		invite: '',
 		members: ''		
 	}
-	types: Array<string> = ['Lunch','Breakfast'];
-	successMessage = '' ;
-	errors: Array<any> = [] ;
+
 	constructor(private fileToBase64Service: FileToBase64Service, private friendsService: FriendsService, private groupsService: GroupsService, private ordersService: OrdersService) {
-		this.fileToBase64Service.fileToBase64Event.subscribe(
-				(base64Format: any) => {this.order.menu = base64Format ;console.log(this.order);}
-			)
+		this.fileToBase64Service.fileToBase64Event.subscribe((base64Format: any) => {this.order.menu = base64Format;})
 	}
 
 	ngOnInit() {
@@ -37,33 +39,20 @@ export class AddOrderComponent implements OnInit {
 	
 	loadFriends(){
 		this.friendsService.getFriends().subscribe(
-				(friends: any) => {
-					console.log(friends);
-					if(friends.status){
-						this.groupsList = [] ;
-						this.friendsList = friends.friends.friends
-						console.log(this.friendsList)
-					}
-				}
-			)	
+				(friends: any) => 
+					{if(friends.status) this.friendsList = friends.friends.friends }
+				)	
 	}
 
 	loadGroups(){
+		// user can only invite people in groups he created 
 		this.groupsService.getGroups().subscribe(
-			(groups: any) => {
-				console.log(groups);
-				if(groups.status){
-					this.friendsList = [] ;
-					// user can only invite people in groups he created 
-					this.groupsList = groups.ownedGroups ; 
-						console.log(this.groupsList);
-				
-				}
-			}
-		)	
-
+			(groups: any) => 
+				{if(groups.status){this.groupsList = groups.ownedGroups ;}}
+			)	
 	}
-	selectedType(type: string){
+
+	changeSelectedType(type: string){
 		switch(type){
 			case 'user': 
 				this.friend = true ;
@@ -80,6 +69,7 @@ export class AddOrderComponent implements OnInit {
 			break ; 
 		}
 	}
+
 	selectMenu(input: any){
 		let allowed_extensions = ['image/jpeg','image/png','image/jpg'] ;
 		let file = input.files[0]; 
@@ -90,36 +80,46 @@ export class AddOrderComponent implements OnInit {
 		else
 			this.errors.push("Only images with png, jpeg, jpg extensions are allowed");
 	}
+
+	validateOrder(): Array<string>{
+		let errors = [] ;
+		for (var property in this.order) {
+		    if (this.order.hasOwnProperty(property)) {
+		    	if(this.order[property].trim() == ""){
+		    		errors.push(property + " Cannot be Empty ") ;
+		    	}
+		    }
+		}
+		return errors; 
+	}
+
+	sendOrder(){
+		// submit the form 
+		let orderObj = { 
+			name: this.order.for,
+			restaurant: this.order.resturantname,
+			invited_type: this.order.invite ,
+			invited_id: this.order.members
+		 }
+
+		this.ordersService.addOrder(JSON.stringify(orderObj)).subscribe(
+		(response: any) =>{
+			if(!response.status){
+				this.errors = response.errors ;
+			}else{
+				this.successMessage = response.order.name+' from ' + response.order.restaurant +" has been added successfully!";
+			}	
+		});	
+	}
+
 	onSubmit(){
 		// clear the errors array 
 		this.errors = [] ;
 		// form validation 
-		for (var property in this.order) {
-		    if (this.order.hasOwnProperty(property)) {
-		    	if(this.order[property].trim() == ""){
-		    		this.errors.push(property + " Cannot be Empty ") ;
-		    	}
-		    }
-		}
-
+		this.errors = this.validateOrder();
+		// send the request 
 		if(this.errors.length == 0 ){
-			// submit the form 
-			let orderObj = { 
-				name: this.order.for,
-				restaurant: this.order.resturantname,
-				invited_type: this.order.invite ,
-				invited_id: this.order.members
-			 }
-			console.log('order obj', orderObj);
-			this.ordersService.addOrder(JSON.stringify(orderObj)).subscribe(
-			(response: any) =>{
-				console.log(response);
-				if(!response.status){
-					this.errors = response.errors ;
-				}else{
-					this.successMessage = response.order.name+' from ' + response.order.restaurant +" has been added successfully!";
-				}	
-			});
+			this.sendOrder();
 		}
 
 	}
