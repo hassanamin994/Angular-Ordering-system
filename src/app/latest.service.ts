@@ -7,12 +7,10 @@ import { LocalstorageService } from './localstorage.service';
 @Injectable()
 export class LatestService extends HeadersClass{
 
-  constructor(private http: Http, private apiRouter: ApiRouterService, private localStorageService: LocalstorageService) {
-  	super(localStorageService) ;
+  constructor(private http: Http, private apiRouter: ApiRouterService) {
+  	super() ;
 
   }
-
-
 
 
 }

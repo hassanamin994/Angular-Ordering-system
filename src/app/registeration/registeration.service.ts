@@ -10,13 +10,10 @@ export class RegisterationService {
   constructor(private http: Http, private apiRouter: ApiRouterService) { }
 
   register(user: any){
-  let registerURL =  this.apiRouter.getRegisterationRoute();
-
-	const userStringified = JSON.stringify(user); 
 	const headers = new Headers() ;
 	headers.append('Content-Type','application/json');
-  	console.log(userStringified);
-  	return this.http.post(registerURL, userStringified, { headers: headers })
+  
+  return this.http.post( this.apiRouter.getRegisterationRoute(), user, { headers: headers })
   			.map((data: Response) => data.json());
   }
 }

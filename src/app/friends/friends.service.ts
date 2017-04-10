@@ -2,18 +2,12 @@ import { Injectable } from '@angular/core';
 import { ApiRouterService } from '../api-router.service';
 import { Http, Response ,Headers, RequestOptions} from '@angular/http';
 import { LocalstorageService } from '../localstorage.service';
+import { HeadersClass } from '../headers';
 @Injectable()
-export class FriendsService {
-  access_token: string; 
-  options: RequestOptions ;
+export class FriendsService extends HeadersClass {
 
-  constructor(private http: Http, private apiRouter: ApiRouterService, private localStorageService: LocalstorageService) {
-  	this.access_token = this.localStorageService.getAccessToken();
-    const headers = new Headers() ;
-    headers.append('Content-Type','application/json');
-    headers.append('Authorization',this.access_token);
-    this.options = new RequestOptions({headers: headers});
-
+  constructor(private http: Http, private apiRouter: ApiRouterService) {
+    super();
   }
   
   getFriends(){

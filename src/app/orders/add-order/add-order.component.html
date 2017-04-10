@@ -5,11 +5,14 @@
 				<div class="form-group">
 				  <label for="type" class="control-label col-xs-2">Order for</label>
 				  <div class="col-xs-10">
-				  	<input list="types" class="form-control" [(ngModel)]="order.for" id="type" name="type">
+<!-- 				  	<input list="types" class="form-control" [(ngModel)]="order.for" id="type" name="type">
 					<datalist id="types">
 					  <option value="Lunch">
 					  <option value="Breakfast">
-					</datalist>
+					</datalist> -->
+					<select name="type" id="type" class="form-control" [(ngModel)]="order.for" >
+						<option *ngFor=" let type of types" [value]="type">{{type}}</option>
+					</select>					
 				  </div>
 				</div>
 				<div class="form-group">
@@ -21,33 +24,39 @@
 				<div class="form-group" >
 				  <label for="invite" class="control-label col-xs-2">Who you will invite ?</label>
 				  <div class="col-xs-10">
-				 	<input type="radio" name="invite" id="invite_friend" [(ngModel)]="order.invite" #f (click)="selectedType(f.value)"  value="user" >Friend
+				 	<input type="radio" name="invite" id="invite_friend" [(ngModel)]="order.invite" #f (click)="changeSelectedType(f.value)"  value="user" >Friend
 				 	<br>
-				 	<input type="radio" name="invite" id="invite_group" [(ngModel)]="order.invite" #g (click)="selectedType(g.value)" value="group" >Group
+				 	<input type="radio" name="invite" id="invite_group" [(ngModel)]="order.invite" #g (click)="changeSelectedType(g.value)" value="group" >Group
 				  </div>
 				</div>
 				<div class="form-group" [hidden]="!friend" >
 				  <label for="friend" class="control-label col-xs-2">Friend Email</label>
 				  <div class="col-xs-10">
-				 	<input list="friends" name="friend" id="friend" class="form-control" [(ngModel)]="order.members" >
+<!-- 				 	<input list="friends" name="friend" id="friend" class="form-control" [(ngModel)]="order.members" >
 					<datalist id="friends">
 					  <option *ngFor=" let friend of friendsList " [value]="friend.email"  >
-					</datalist>
+					</datalist> -->
+					<select name="friend" id="friend" class="form-control" [(ngModel)]="order.members" >
+						<option *ngFor=" let friend of friendsList" [value]="friend._id">{{friend.email}}</option>
+					</select>
 				  </div>
 				</div>
 				<div class="form-group" [hidden]="!group">
 				  <label for="group" class="control-label col-xs-2">Group Name</label>
 				  <div class="col-xs-10">
-				 	<input list="groups" name="group" id="group" class="form-control" [(ngModel)]="order.members" >
+<!-- 				 	<input list="groups" name="group" id="group" class="form-control" [(ngModel)]="order.members" >
 				 	<datalist id="groups">
 					  <option *ngFor=" let group of groupsList " [value]="group.name"  >
-					</datalist>
+					</datalist> -->
+					<select name="group" id="group" class="form-control" [(ngModel)]="order.members" >
+						<option *ngFor=" let group of groupsList" [value]="group._id">{{group.name}}</option>
+					</select>
 				  </div>
 				</div>				
 				<div class="form-group">
 				    <label for="menu" class="control-label col-xs-2">Menu image</label>
 				    <div class="col-xs-10">
-				    	<input type="file" id="menu">
+				    	<input type="file" id="menu" #menu (change)="selectMenu(menu)">
 				   	 	<p class="help-block">Upload a picture for the menu.</p>
 				  	</div>	
 				</div>
@@ -61,8 +70,10 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-xs-4">
-			
+		<div class="col-xs-10">
+			<div class="alert alert-success" [hidden]="successMessage == ''">
+			  {{successMessage}}
+			</div>
 		</div>
 	</div>	
 </div>
