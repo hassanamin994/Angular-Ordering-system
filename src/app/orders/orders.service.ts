@@ -19,4 +19,12 @@ export class OrdersService extends HeadersClass {
 		return this.http.get(this.apiRouter.getOrdersRoute(),this.options)
 			.map((response: Response) => response.json());
 	}
+	checkoutOrder(id: any){
+		return this.http.put(this.apiRouter.getOrdersRoute()+"/finish/"+id,this.options)
+			.map((response:Response) => response.json());
+	}
+	cancelOrder(id: any){
+		return this.http.delete(this.apiRouter.getOrdersRoute()+"/"+id,this.options)
+			.map((response:Response) => response.json());	
+	}
 }
