@@ -40,28 +40,49 @@ export class RegisterationComponent implements OnInit {
     else
       this.errors.push("Only images with png, jpeg, jpg extensions are allowed");
   }
-  onSubmit(){
-    if(this.user.name != "" && emailValidator(this.user.email) && this.user.password == this.user.confirm_password ){
-      let userObj = {"name": this.user.name, "email": this.user.email, "password": this.user.password, 'repassword': this.user.confirm_password, image:this.user.image };
-      this.registerationService.register(JSON.stringify(userObj)).subscribe(
-        (response: any) => {
-          // if any errors occured view them to user
-          if(!response.loggedIn){
-            this.errors = response.errors;
-          }else{
-            // if successfully registere, redirect to login page 
-            this.success_message = "Registered Successfully!\n Redirecting...";
-            this.errors = [] ;
-            setTimeout(() => this.router.navigate(['/login']) ,2000);
+
+  validateForm(): Array<string>{
+    let errors = [] ;
+    for (var property in this.user) {
+        if (this.user.hasOwnProperty(property)) {
+          if(this.user[property].trim() == ""){
+            errors.push(property + " Cannot be Empty ") ;
           }
-        } 
-        ) ; 
+        }
+    }
+    return errors; 
+  }
+
+  registerUser(userObj: any){
+    this.registerationService.register(JSON.stringify(userObj)).subscribe(
+      (response: any) => {
+        // if any errors occured view them to user
+        if(!response.loggedIn){
+          this.errors = response.errors;
+        }else{
+          // if successfully registere, redirect to login page 
+          this.success_message = "Registered Successfully!\n Redirecting...";
+          this.errors = [] ;
+          setTimeout(() => this.router.navigate(['/login']) ,2000);
+        }
+      } 
+      ) ; 
+  }
+
+  onSubmit(){
+    this.errors = this.validateForm();
+    if(this.errors.length == 0){
+      let userObj = {"name": this.user.name, "email": this.user.email, "password": this.user.password, 'repassword': this.user.confirm_password, image:this.user.image };
+      this.registerUser(userObj);
     }else{
       console.log('invalid')
     }
   }
 
 }
+
+// Helper functions 
+
 function emailValidator(email) {
     var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     return re.test(email);
