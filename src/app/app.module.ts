@@ -49,16 +49,13 @@ const appRoutes: Routes = [
     GroupUsersComponent,
     UserItemComponent,
     FriendsComponent,
-<<<<<<< HEAD
     OrdersComponent,
     AddOrderComponent,
-=======
     HomeComponent,
     LastOrdersListComponent,
     ActivitiesListComponent,
     LastOrderComponent,
     ActivityComponent,
->>>>>>> 153db62fdbd892808b480a25bd0d589ad352cd93
   ],
   imports: [
     BrowserModule,
