@@ -38,7 +38,9 @@ export class AddOrderComponent implements OnInit {
 				(friends: any) => {
 					console.log(friends);
 					if(friends.status){
+						this.groupsList = [] ;
 						this.friendsList = friends.friends.friends
+						console.log(this.friendsList)
 					}
 				}
 			)	
@@ -49,8 +51,11 @@ export class AddOrderComponent implements OnInit {
 			(groups: any) => {
 				console.log(groups);
 				if(groups.status){
+					this.friendsList = [] ;
 					// user can only invite people in groups he created 
 					this.groupsList = groups.ownedGroups ; 
+						console.log(this.groupsList);
+				
 				}
 			}
 		)	
