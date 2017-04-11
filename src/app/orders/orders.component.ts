@@ -10,7 +10,7 @@ export class OrdersComponent implements OnInit {
   owned_orders: Array<any> = [] 
   invited_orders: Array<any> = [] 
   constructor(private ordersService: OrdersService) { }
-
+  error:string = '' ; 
   ngOnInit() {
   	this.ordersService.getOrders().subscribe(
   		(response: any) => {
@@ -46,6 +46,9 @@ export class OrdersComponent implements OnInit {
   				console.log(response);
   				if(response.status){
   					this.changeCheckoutStatus(id);
+  					this.error=''; 
+  				}else{
+  					this.error="Something went wrong, Please try again later!"
   				}
   			}
   		)
@@ -57,6 +60,9 @@ export class OrdersComponent implements OnInit {
   				console.log(response);
   				if(response.status){
   					this.removeOrder(id);
+  					this.error=''; 
+  				}else{
+  					this.error="Something went wrong, Please try again later!"
   				}
   			}
   		)
