@@ -11,6 +11,8 @@ export class LastOrderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    var d = new Date(this.order.date);
+    this.order.date = d.toString();
   }
   viewOrder(){
     //redirect to order view

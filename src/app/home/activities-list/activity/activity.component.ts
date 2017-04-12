@@ -11,6 +11,8 @@ export class ActivityComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    var d = new Date(this.activity.date);
+    this.activity.date = d.toString();
   }
 
 }

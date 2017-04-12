@@ -1,19 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-//import orders service
+import { LatestService } from './../../latest.service';
+
 @Component({
   selector: 'app-last-orders-list',
   templateUrl: './last-orders-list.component.html',
-  styleUrls: ['./last-orders-list.component.css']
+  styleUrls: ['./last-orders-list.component.css'],
+  providers: [LatestService]
 })
 export class LastOrdersListComponent implements OnInit {
   lastOrders: Array<any>  ;
-  constructor() { }
+  constructor(private latestService: LatestService) { }
 
   ngOnInit() {
     this.setLastOrders();
   }
   setLastOrders(){
-    //get last 5 orders from database using ordersService
-    this.lastOrders = [{name:"breakfast",restaurant:"Hamza",date:Date.now()},{name:"lunch",restaurant:"Mac"}];
+    this.latestService.getLatestOrders().subscribe(
+      (orders: any) => {
+        console.log(orders)
+        this.lastOrders = orders.owned_orders.concat(orders.invited_orders).sort(this.mySort('date'));
+      }
+    )
+  }
+  mySort(property) {
+      return function (a,b) {
+          return (a[property] > b[property]) ? -1 : (a[property] < b[property]) ? 1 : 0;
+      }
   }
 }

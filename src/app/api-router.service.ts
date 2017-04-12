@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ApiRouterService {
-  private auth = { 
+  private auth = {
 		registeration: "http://localhost:8090/auth/register",
 		login: "http://localhost:8090/auth/login"
-	} 
+	}
   private users = "http://localhost:8090/user"
   private groups = "http://localhost:8090/group";
   private orders = "http://localhost:8090/order";
@@ -18,7 +18,7 @@ export class ApiRouterService {
 	public getLoginRoute(){
 		return this.auth.login;
 	}
-	
+
 	public getGroupsRoute(){
 		return this.groups;
 	}
