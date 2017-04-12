@@ -9,7 +9,7 @@ export class FileToBase64Service {
 		let reader = new FileReader() ;
 		reader.onload = (readerEvt: any) => {
             var binaryString = readerEvt.target.result;
-           	 this.fileToBase64Event.emit(btoa(binaryString));
+           	 this.fileToBase64Event.emit("data:"+file.type+";base64,"+btoa(binaryString));
 		}
         reader.readAsBinaryString(file);
 	}

@@ -72,7 +72,7 @@ export class RegisterationComponent implements OnInit {
   onSubmit(){
     this.errors = this.validateForm();
     if(this.errors.length == 0){
-      let userObj = {"name": this.user.name, "email": this.user.email, "password": this.user.password, 'repassword': this.user.confirm_password, image:this.user.image };
+      let userObj = {"name": this.user.name, "email": this.user.email, "password": this.user.password, 'repassword': this.user.confirm_password, profile:this.user.image };
       this.registerUser(userObj);
     }else{
       console.log('invalid')

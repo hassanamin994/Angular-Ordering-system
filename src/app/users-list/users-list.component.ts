@@ -9,11 +9,23 @@ export class UsersListComponent implements OnInit {
   users: Array<any> = [];
   @Input() buttonName: string ; 
   constructor(private groupUserService: NewGroupUsersService) { }
-
+  checkDuplicateGroupMember(user: any){
+    for(let i = 0 ; i < this.users.length ; i++ ){
+      if(this.users[i]._id == user._id){
+        return false ;
+      }
+    }
+    return true ;
+  }
   ngOnInit() {
     this.groupUserService.pushedUsers.subscribe(
-        (user) => {
-          this.users = this.groupUserService.users;
+        (user: any) => {
+          // console.log(user);
+          console.log(this.users,'user list');
+          if(this.checkDuplicateGroupMember(user)){
+            this.groupUserService.users.push(user);
+            this.users.push(user);
+          }
           console.log(this.users,'update add users')
         }
       );

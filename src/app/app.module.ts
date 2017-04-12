@@ -36,6 +36,7 @@ const appRoutes: Routes = [
   { 'path':'groups', component: GroupsComponent },
   { 'path':'friends', component: FriendsComponent },
   { 'path':'orders/add', component: AddOrderComponent },
+  { 'path':'orders/details/:id', component: OrderDetailsComponent },
   { 'path':'orders', component: OrdersComponent },
   { 'path':'', redirectTo:'/login', pathMatch: "full" },
   { 'path':'**', redirectTo:'/login', pathMatch: "full" }

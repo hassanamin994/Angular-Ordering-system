@@ -9,14 +9,15 @@ export class NewGroupUsersService {
   refreshUsers = new EventEmitter<any>();
   constructor() { }
   addUser(user: any){
+      console.log(user._id);
+
   	for(let i = 0; i<this.users.length; i++){
       if(this.users[i].id == user._id){
-        console.log(this.users[i], ' new group user service ')
+        console.log(this.users[i], ' new group user service ',this.users[i].id == user._id)
         return; 
       }
     }
 
-    this.users.push(user);
   	this.pushedUsers.emit(user);
 
     // console.log(this.users);
