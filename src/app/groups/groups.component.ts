@@ -15,6 +15,8 @@ export class GroupsComponent implements OnInit {
   validGroupName: boolean = true ; 
   validFriendList: boolean = true ;
   friendsList = []  ;
+  groupMembers = [] ;
+  errors = [] ;
   constructor(private groupUsersService: NewGroupUsersService, private groupService: GroupsService, private friendsService: FriendsService) { }
 
   ngOnInit() {
@@ -29,34 +31,73 @@ export class GroupsComponent implements OnInit {
 
       );
   }
-  addGroup(){
-  	this.groupName = this.groupName.trim();
+  removeUser(id: any){
+    console.log(id)
+    for(var i = 0; i<this.groupMembers.length; i++ ){
+      if(this.groupMembers[i]._id == id ){
+        this.groupMembers.splice(i,1);
+      }
+    }
+  }  
+  checkDuplicate(user: any){
+    for(let i = 0 ; i < this.groupMembers.length; i++){
+      if(this.groupMembers[i]._id == user._id){
+        return true ;
+      }
+    }
+    return false;
+  }
+  addUser(user: any){
+    if(user._id && !this.checkDuplicate(user) )
+      this.groupMembers.push(user);
+  }
 
-    	// check if users array has no members 
-   	if(this.groupUsersService.users.length == 0 ){
-   		console.log("Enter at least one friend");
-   		this.validFriendList = false ;
-   	}else{
-   		this.validFriendList = true ;
-   	}
-   	
-    	// check if group name is empty 
-   	if(this.groupName.length == 0){
-   		this.validGroupName = false ;
-   	}else{
-   		this.validGroupName = true ;
-   	}
-  	
-  	if(this.validGroupName && this.validFriendList){
-      let groupObj = {group_name: this.groupName, members: this.groupUsersService.getUsersIds()}
-      console.log(groupObj);
-  		this.groupService.addGroup(groupObj).subscribe(
-         (response: any) => {
-           console.log(response);
+  validateGroup(){
+    this.errors = [] ;
+    this.groupName = this.groupName.trim();
+    // check if users array has no members 
+    if(this.groupMembers.length == 0 ){
+     this.validFriendList = false ;
+     this.errors.push('Group list must contain at least one friend!')
+    }else{
+     this.validFriendList = true ;
+    }
+
+    // check if group name is empty 
+    if(this.groupName.length == 0){
+     this.validGroupName = false ;
+     this.errors.push('Group name cannot be empty!')
+    }else{
+     this.validGroupName = true ;
+    }
+  }
+  getUsersIds(){
+    let usersArray = [] ;
+    this.groupMembers.forEach(function(user){
+      usersArray.push(user._id);
+    });
+    return usersArray;
+  }
+  submitGroup(){
+    let groupObj = {group_name: this.groupName, members: this.getUsersIds()}
+    console.log(groupObj);
+    this.groupService.addGroup(groupObj).subscribe(
+       (response: any) => {
+         console.log(response);
+         if(response.status)
            this.groupService.refreshGroups.emit(1);
-         }
-        );
-  	}
+         else
+           this.errors.push(response.error)
+       }
+    );
+  }
+  addGroup(){
+
+  	this.validateGroup() ;
+
+  	if(this.validGroupName && this.validFriendList)
+      this.submitGroup();
+  	
   }
 
 }

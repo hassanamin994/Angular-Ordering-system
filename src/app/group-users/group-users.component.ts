@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { NewGroupUsersService } from '../new-group-users.service';
 @Component({
   selector: 'app-group-users',
@@ -9,10 +9,16 @@ export class GroupUsersComponent implements OnInit {
   @Input() title: string; 
   @Input() buttonName: string;
   @Input() usersSource =  [] ;
+  @Input() membersSource = [] ;
+  @Output() removeUserEmitter: EventEmitter<any> = new EventEmitter(); 
+  @Output() addUserEmitter: EventEmitter<any> = new EventEmitter(); 
   constructor(private groupUserService: NewGroupUsersService) { }
 
   ngOnInit() {
     
+  }
+  removeUser(id:any){
+    this.removeUserEmitter.emit(id);
   }
   addUser(user: any){
 
@@ -26,7 +32,8 @@ export class GroupUsersComponent implements OnInit {
       }
     }
     let userObj = { name:user.value, image:selectedImg, _id:selectedId };
-  	this.groupUserService.addUser(userObj);
+    console.log(userObj,'from group-user');
+  	this.addUserEmitter.emit(userObj);
   }
 
   keyDown(user: any){
