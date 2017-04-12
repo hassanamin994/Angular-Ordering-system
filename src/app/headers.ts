@@ -5,9 +5,9 @@ export class HeadersClass{
 
 		access_token: string;
 		options: RequestOptions ;
-
-		constructor(localStorageService: LocalstorageService){
-		  	this.access_token = localStorageService.getAccessToken();
+		localStorageService: LocalstorageService = new LocalstorageService();
+		constructor(){
+		  	this.access_token = this.localStorageService.getAccessToken();
 		    const headers = new Headers() ;
 		    headers.append('Content-Type','application/json');
 		    headers.append('authorization',this.access_token);
