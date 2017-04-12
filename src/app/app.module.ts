@@ -28,6 +28,7 @@ import { AddOrderComponent } from './orders/add-order/add-order.component';
 import { FileToBase64Service } from './file-to-base64.service';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { MealsListComponent } from './orders/order-details/meals-list/meals-list.component';
+import { HeaderComponent } from './header/header.component';
 
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent },
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     ActivityComponent,
     OrderDetailsComponent,
     MealsListComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
