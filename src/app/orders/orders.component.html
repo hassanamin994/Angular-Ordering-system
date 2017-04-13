@@ -43,7 +43,7 @@
 				<td>{{ order.joined_members.length }}</td>
 				<td>{{ order.checkout ? 'finished' : 'waiting'  }}</td>
 				<td>
-					<a class="btn btn-xs btn-info" (click)="viewProduct()">View</a>
+					<a class="btn btn-xs btn-info" [routerLink]="['/orders','details',order._id]" >View</a>
 				</td>
 			</tr>
 			<!-- End Invited Orders -->
