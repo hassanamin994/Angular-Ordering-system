@@ -1,1 +1,1 @@
-<app-group-users [usersSource]="allFriends" [title]="userGroupTitle" [buttonName]="usersGroupButton"></app-group-users>
+<app-group-users (addUserEmitter)="addUser($event)" (removeUserEmitter)="removeUser($event)" [membersSource]="allFriends" [usersSource]="allUsers" [title]="usersGroupTitle" [buttonName] = "usersGroupButton"></app-group-users>
