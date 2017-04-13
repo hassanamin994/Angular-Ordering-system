@@ -12,7 +12,6 @@ export class GroupUsersComponent implements OnInit {
   constructor(private groupUserService: NewGroupUsersService) { }
 
   ngOnInit() {
-
     
   }
   addUser(user: any){
@@ -22,7 +21,7 @@ export class GroupUsersComponent implements OnInit {
     for( let i = 0; i < this.usersSource.length ; i++ ){
       if(this.usersSource[i].email == user.value){
         selectedId = this.usersSource[i]._id ;
-        console.log(selectedId)
+        console.log(selectedId, ' group-user')
         // add selected image when implemented in backend 
       }
     }

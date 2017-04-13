@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   email: string = "";
   password: string = ""; 
   form: any;
-  error = true;
+  error = false;
   constructor(private loginService: LoginService, private localstrg: LocalstorageService, private router: Router) { }
 
   ngOnInit() {
@@ -26,8 +26,11 @@ export class LoginComponent implements OnInit {
             this.error = response.loggedIn 
             if(response.loggedIn){
               this.localstrg.setAccessToken(response.access_token);
+              console.log(response.access_token)
               this.localstrg.setData(response.data);
               this.router.navigate(['/friends'])
+            }else{
+              this.error = true;
             }
 
           }
