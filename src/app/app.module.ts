@@ -30,6 +30,7 @@ import { OrderDetailsComponent } from './orders/order-details/order-details.comp
 import { MealsListComponent } from './orders/order-details/meals-list/meals-list.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HeaderComponent } from './header/header.component';
+import { ModalComponent } from './modal/modal.component';
 
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent },
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
     MealsListComponent,
     NotificationsComponent,
     HeaderComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

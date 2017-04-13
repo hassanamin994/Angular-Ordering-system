@@ -1,14 +1,18 @@
 <div class="row">
 	<div class="col-xs-12 col-sm-8">
-		<app-meals-list [mealsList] = "mealsList"></app-meals-list>	
+		<app-meals-list [mealsList] = "order.meals"></app-meals-list>	
 	</div>
 	
 	<div class="col-xs-12 col-sm-4">
 		<div class="invited">
-			<a data-toggle="modal" data-target="#myModal" >10 friends invited, click to view!</a><br>
-			<a data-toggle="modal" data-target="#myModal" >10 friends joined, click to view!</a>
+		<!-- Invited Members  -->
+			<app-modal (removeUserEmitter) = "removeUser($event)" [buttonName]="buttonName" [membersSource] = " orderMembers " [title]=" invitedFriendsTitle " [modalLinkTitle] = "invitedFriends_modalLinkTitle" ></app-modal>
+		<!-- End Invited Members -->
+		<br>
+		<!-- Joined Members  -->
+			<app-modal (removeUserEmitter) = "removeUser($event)" [buttonName]="buttonName" [membersSource] = " order.joined_members " [title]=" joinedFriendsTitle " [modalLinkTitle] = "joinedFriends_modalLinkTitle" ></app-modal>
+		<!-- End Joined Members -->
 		</div>	
-		joined
 	</div>
 </div>	
 <div class="row" [hidden]="order.checkout" >
