@@ -11,7 +11,8 @@ export class ApiRouterService {
   private orders = "http://localhost:8090/order";
   constructor() { }
 
-  private friends = "http://localhost:8090/friends"
+  private friends = "http://localhost:8090/friends";
+  private notifications = "http://localhost:8090/notification"
 	public getRegisterationRoute(){
 		return this.auth.registeration ;
 	}
@@ -32,4 +33,7 @@ export class ApiRouterService {
 	public getOrdersRoute(){
 		return this.orders;
 	}
+  public getNotificationsRoute(){
+    return this.notifications;
+  }
 }

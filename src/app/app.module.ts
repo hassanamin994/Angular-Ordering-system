@@ -28,6 +28,7 @@ import { AddOrderComponent } from './orders/add-order/add-order.component';
 import { FileToBase64Service } from './file-to-base64.service';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { MealsListComponent } from './orders/order-details/meals-list/meals-list.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 import { HeaderComponent } from './header/header.component';
 
 const appRoutes: Routes = [
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
   { 'path':'orders/add', component: AddOrderComponent },
   { 'path':'orders/details/:id', component: OrderDetailsComponent },
   { 'path':'orders', component: OrdersComponent },
+  { 'path':'notifications', component: NotificationsComponent },
   { 'path':'', redirectTo:'/login', pathMatch: "full" },
   { 'path':'**', redirectTo:'/login', pathMatch: "full" }
 ]
@@ -64,6 +66,7 @@ const appRoutes: Routes = [
     ActivityComponent,
     OrderDetailsComponent,
     MealsListComponent,
+    NotificationsComponent,
     HeaderComponent,
   ],
   imports: [
