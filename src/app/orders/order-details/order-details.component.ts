@@ -17,6 +17,7 @@ export class OrderDetailsComponent implements OnInit {
 	mealsList = [] ;
 	errors = [] ;
 	groupId ; 
+  order = {}; 
   constructor(private ordersDetailsService: OrdersDetailsService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -58,6 +59,8 @@ export class OrderDetailsComponent implements OnInit {
   }
   setOrderInfo(order: any){
   	this.mealsList = order.meals;
+    this.order = order;
+    console.log(order)
   }
   sendItem(item: any){
   	item = {item: item.item, amount: item.amount.toString(), price: item.price.toString(), comment: item.comment }
