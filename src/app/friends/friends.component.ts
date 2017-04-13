@@ -13,7 +13,7 @@ export class FriendsComponent implements OnInit {
   usersGroupButton: string = "unfriend";
   allFriends = [] 
   allUsers = [] 
-  constructor(private friendsService: FriendsService, private usersService: UsersService,private groupUsersService: NewGroupUsersService) { }
+  constructor(private friendsService: FriendsService, private usersService: UsersService) { }
 
   ngOnInit() {
   	this.friendsService.getFriends().subscribe(
