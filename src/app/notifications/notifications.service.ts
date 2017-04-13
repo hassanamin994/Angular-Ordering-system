@@ -12,21 +12,23 @@ export class NotificationsService extends HeadersClass{
   private socket;
 
   constructor(private http: Http, private apiRouter: ApiRouterService) {
-  	super() ;
+  	super();
     this.socket = io(this.url);
-
+    // this.socket.on('notify_user',)
   }
   notify(obj){ this.socket.emit('notify', obj) }
   disconnect(user_id){ this.socket.emit('disconnect', user_id) }
   join(user_id){ this.socket.emit('join', user_id) }
-  respondeInvitation(obj){ this.socket.emit('respondeInvitation', obj) }
+  // respondeInvitation(obj){ this.socket.emit('respondeInvitation', obj) }
 
-  sendInvitation(obj){
-    this.notify(obj)
+  sendInvitation(obj:any){
+    return this.http.post(this.apiRouter.getNotificationsRoute(),obj,this.options)
+			.map((response: Response) => response.json());
   }
   getNotification() {
+// return (cllbck)=>{  this.socket.on('notify_user',cllbck)}
      let observable = new Observable(observer => {
-        this.socket.on('Invite_user', (data) => {
+        this.socket.on('notify_user', (data) => {
             console.log(data)
             observer.next(data);
           });

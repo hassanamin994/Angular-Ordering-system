@@ -30,6 +30,7 @@ import { OrderDetailsComponent } from './orders/order-details/order-details.comp
 import { MealsListComponent } from './orders/order-details/meals-list/meals-list.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HeaderComponent } from './header/header.component';
+import { NotificationsAllComponent } from './notifications-all/notifications-all.component';
 
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent },
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
   { 'path':'orders/add', component: AddOrderComponent },
   { 'path':'orders/details/:id', component: OrderDetailsComponent },
   { 'path':'orders', component: OrdersComponent },
-  { 'path':'notifications', component: NotificationsComponent },
+  { 'path':'notifications', component: NotificationsAllComponent },
   { 'path':'', redirectTo:'/login', pathMatch: "full" },
   { 'path':'**', redirectTo:'/login', pathMatch: "full" }
 ]
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
     MealsListComponent,
     NotificationsComponent,
     HeaderComponent,
+    NotificationsAllComponent,
   ],
   imports: [
     BrowserModule,

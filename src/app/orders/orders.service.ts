@@ -1,4 +1,4 @@
- import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response ,Headers, RequestOptions} from '@angular/http';
 import { HeadersClass } from '../headers';
 import { ApiRouterService } from '../api-router.service';
@@ -25,6 +25,6 @@ export class OrdersService extends HeadersClass {
 	}
 	cancelOrder(id: any){
 		return this.http.delete(this.apiRouter.getOrdersRoute()+"/"+id,this.options)
-			.map((response:Response) => response.json());	
+			.map((response:Response) => response.json());
 	}
 }
