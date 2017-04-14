@@ -21,7 +21,14 @@ export class LocalstorageService {
   public getData(){
   	return JSON.parse(localStorage.getItem('data')) ;
   }
+  public removeData(){
+    localStorage.removeItem('data');
+  }
   public isLoggedIn(){
     return localStorage.getItem('access_token') != null ;
+  }
+  public removeStoredData(){
+    this.removeAccessToken();
+    this.removeData();
   }
 }

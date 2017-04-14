@@ -8,6 +8,6 @@
 <button class='btn btn-success' (click)="addUser(user)" >Add</button>
 	</div>
 	<div class="row">
-		<app-users-list [buttonName]="buttonName" ></app-users-list>
+		<app-users-list (removeUserEmitter)="removeUser($event)" [users]="membersSource" [buttonName]="buttonName" ></app-users-list>
 	</div>
 </div>

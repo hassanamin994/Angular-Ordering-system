@@ -18,8 +18,11 @@ export class OrdersDetailsService extends HeadersClass{
 
   }
   addMeal(id: number, meal:any){
-  	console.log(meal)
   	return this.http.post(this.apiRouter.getOrdersRoute()+"/"+id+"/meal", meal, this.options)
   		.map((response: Response) => response.json() );  	
+  }
+  getOrderMembers(groupId: any){
+    return this.http.get(this.apiRouter.getGroupsRoute()+"/"+groupId, this.options)
+      .map((response: Response ) => response.json() );
   }
 }

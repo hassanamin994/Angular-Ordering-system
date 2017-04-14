@@ -31,6 +31,7 @@ import { MealsListComponent } from './orders/order-details/meals-list/meals-list
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HeaderComponent } from './header/header.component';
 import { NotificationsAllComponent } from './notifications-all/notifications-all.component';
+import { ModalComponent } from './modal/modal.component';
 
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent },
@@ -41,7 +42,7 @@ const appRoutes: Routes = [
   { 'path':'orders/add', component: AddOrderComponent },
   { 'path':'orders/details/:id', component: OrderDetailsComponent },
   { 'path':'orders', component: OrdersComponent },
-  { 'path':'notifications', component: NotificationsAllComponent },
+  { 'path':'notifications', component: NotificationsComponent },
   { 'path':'', redirectTo:'/login', pathMatch: "full" },
   { 'path':'**', redirectTo:'/login', pathMatch: "full" }
 ]
@@ -70,6 +71,7 @@ const appRoutes: Routes = [
     NotificationsComponent,
     HeaderComponent,
     NotificationsAllComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

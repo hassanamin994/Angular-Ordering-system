@@ -12,51 +12,60 @@ export class FriendsComponent implements OnInit {
   usersGroupTitle: string = "Your Friend Name";
   usersGroupButton: string = "unfriend";
   allFriends = [] 
-  constructor(private friendsService: FriendsService, private usersService: UsersService,private groupUsersService: NewGroupUsersService) { }
+  allUsers = [] 
+  constructor(private friendsService: FriendsService, private usersService: UsersService) { }
 
   ngOnInit() {
   	this.friendsService.getFriends().subscribe(
   		(friends: any) => {console.log(friends);
         if(friends.status)
-          this.groupUsersService.setUsers(friends.friends.friends); 
+          this.allFriends = friends.friends.friends ;  
   		}
 
   		);
   	this.usersService.getUsers().subscribe(
   		(users: any) => {
-      	this.allFriends=users;
+      	this.allUsers = users;
         // console.log(users);
   		}
 
   		);
-
-      this.groupUsersService.removedUsers.subscribe(
-          (id: any) => {
-            console.log(id); 
-            this.friendsService.removeFriend(id).subscribe(
-                (response: any)=>{
-                  console.log(response);
-                }
-              );           
-          }
-        );
-      this.groupUsersService.pushedUsers.subscribe(
-          (user: any) => {
-            // add to friends by id 
-            this.friendsService.addFriend(user._id).subscribe(
-                (response: any) =>{
-                  if(response.status){
-                        this.groupUsersService.users.push(user);
-                  }
-                }
-
-              );
-          }
-        );
-
-
-
   }
 
+  addUser(user: any){
+    if(user._id && !this.checkDuplicate(user) ){
+      // send post request, if success append to allFriends array
+      this.friendsService.addFriend(user._id).subscribe(
+        (response: any) => {
+          console.log(response);
+          if(response.status){
+            this.allFriends.push(user);
+          }
+        }
+        )
+    }
+  }
+  checkDuplicate(user: any){
+    for(let i = 0 ; i < this.allFriends.length; i++){
+      if(this.allFriends[i]._id == user._id){
+        return true ;
+      }
+    }
+    return false;
+  }
+
+  removeUser(id: any){
+    console.log(id)
+    // send delete request, if success remove from the array
+    
+    this.friendsService.removeFriend(id).subscribe(
+      (response: any)=>{
+        if(response.status){
+          for(var i = 0; i<this.allFriends.length; i++ ){
+            if(this.allFriends[i]._id == id ){
+              this.allFriends.splice(i,1);
+            }
+          }}})
+  }
 
 }

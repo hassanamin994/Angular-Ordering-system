@@ -9,13 +9,14 @@ import { NewGroupUsersService } from '../../new-group-users.service';
 export class UserItemComponent implements OnInit {
   @Input() user ;
   @Input() buttonName: string ;
+  @Output() removeUserEmitter = new EventEmitter<any>(); 
   constructor(private groupUserService: NewGroupUsersService) { }
 
   ngOnInit() {
   }
 
   removeUser(id: number){
-  	this.groupUserService.removeUser(this.user._id);
+  	this.removeUserEmitter.emit(this.user._id);
   }
 
 }

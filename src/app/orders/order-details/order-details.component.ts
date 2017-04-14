@@ -14,9 +14,18 @@ export class OrderDetailsComponent implements OnInit {
 		price: 0,
 		comment:""
 	}
-	mealsList = [] ;
+
 	errors = [] ;
 	groupId ; 
+  order = {}; 
+  buttonName = "remove";
+  orderMembers = [] ;
+  invitedFriends_Title = "Invited Friends";
+  invitedFriends_modalLinkTitle = " 10 friends invited, click to view! ";
+
+  joinedFriends = "Invited Friends";
+  joinedFriends_modalLinkTitle = " 10 friends invited, click to view! ";
+
   constructor(private ordersDetailsService: OrdersDetailsService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -37,6 +46,7 @@ export class OrderDetailsComponent implements OnInit {
 		})
 
   }
+
   validateItem(): Array<string>{
 		let errors = [] ;
 		if(this.item.item.trim() == "")
@@ -56,8 +66,30 @@ export class OrderDetailsComponent implements OnInit {
   	if(this.errors.length == 0 )
   		this.sendItem(this.item);
   }
+  
   setOrderInfo(order: any){
-  	this.mealsList = order.meals;
+  	this.orderMembers = [] ;
+    this.order = order;
+    // if is user, push only one element to the array,
+    // else make the order members equals the retrieved array 
+    if(order.invited_user){
+      this.orderMembers.push(order.invited_user)
+      this.invitedFriends_modalLinkTitle = '1 friend invited, click to view!'
+      this.invitedFriends_modalLinkTitle = '1 friend invited, click to view!'
+    }else{
+      this.getOrderMembers(order.invited_group._id);
+      this.invitedFriends_modalLinkTitle = order.invited_group.members.length+' friend invited, click to view!'
+    }
+
+    this.joinedFriends_modalLinkTitle = order.joined_members.length+' friend joined, click to view!'
+    console.log(this.joinedFriends_modalLinkTitle)
+  }
+  getOrderMembers(id: any){
+    this.ordersDetailsService.getOrderMembers(id).subscribe(
+        (response: any) =>{
+          console.log(response, 'order members ');
+        }
+      )
   }
   sendItem(item: any){
   	item = {item: item.item, amount: item.amount.toString(), price: item.price.toString(), comment: item.comment }
@@ -70,4 +102,8 @@ export class OrderDetailsComponent implements OnInit {
   		}
   		);
   }  
+
+  removeUser(id: any){
+    console.log(id);
+  }
 }

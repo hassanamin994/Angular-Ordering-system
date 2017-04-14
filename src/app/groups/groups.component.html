@@ -4,8 +4,7 @@
 	<input type="text" name="new-group" [(ngModel)]="groupName" id='new-group'>
 	<button (click)="addGroup()"class='btn btn-warning'>Add</button><br>
 	<ul>
-		<li [hidden]="validGroupName"><span class="label label-danger">Group name cannot be emtpy!</span></li>
-		<li [hidden]="validFriendList"><span class="label label-danger">Group list must contain at least one friend!</span></li>
+		<li *ngFor="let error of errors" ><span class="label label-danger">{{ error }}</span></li>
 	</ul>
 </div>
 <div class="row">
@@ -13,6 +12,6 @@
 		<app-groups-list></app-groups-list>
 	</div>
 	<div class="col-xs-8">
-		<app-group-users [usersSource]="friendsList" [title]="usersGroupTitle" [buttonName] = "usersGroupButton"></app-group-users>
+		<app-group-users (addUserEmitter)="addUser($event)" (removeUserEmitter)="removeUser($event)" [membersSource]="groupMembers" [usersSource]="friendsList" [title]="usersGroupTitle" [buttonName] = "usersGroupButton"></app-group-users>
 	</div>
 </div>	
