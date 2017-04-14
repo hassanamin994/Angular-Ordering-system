@@ -31,12 +31,12 @@ import { MealsListComponent } from './orders/order-details/meals-list/meals-list
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HeaderComponent } from './header/header.component';
 import { ModalComponent } from './modal/modal.component';
-
+import { MainAppGuard } from './main-app.guard';
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent },
   { 'path':'login', component: LoginComponent },
   { 'path':'registration', component: RegisterationComponent },
-  { 'path':'groups', component: GroupsComponent },
+  { 'path':'groups', component: GroupsComponent, canActivate:[MainAppGuard] },
   { 'path':'friends', component: FriendsComponent },
   { 'path':'orders/add', component: AddOrderComponent },
   { 'path':'orders/details/:id', component: OrderDetailsComponent },
@@ -77,7 +77,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [ ApiRouterService, LocalstorageService , NewGroupUsersService, FileToBase64Service],
+  providers: [ ApiRouterService, LocalstorageService , NewGroupUsersService, FileToBase64Service, MainAppGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
