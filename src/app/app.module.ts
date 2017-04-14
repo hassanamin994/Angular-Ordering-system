@@ -34,15 +34,15 @@ import { NotificationsAllComponent } from './notifications-all/notifications-all
 import { ModalComponent } from './modal/modal.component';
 import { MainAppGuard } from './main-app.guard';
 const appRoutes: Routes = [
-  { 'path':'home', component: HomeComponent },
+  { 'path':'home', component: HomeComponent, canActivate:[MainAppGuard] },
   { 'path':'login', component: LoginComponent },
   { 'path':'registration', component: RegisterationComponent },
   { 'path':'groups', component: GroupsComponent, canActivate:[MainAppGuard] },
-  { 'path':'friends', component: FriendsComponent },
-  { 'path':'orders/add', component: AddOrderComponent },
-  { 'path':'orders/details/:id', component: OrderDetailsComponent },
-  { 'path':'orders', component: OrdersComponent },
-  { 'path':'notifications', component: NotificationsComponent },
+  { 'path':'friends', component: FriendsComponent, canActivate:[MainAppGuard] },
+  { 'path':'orders/add', component: AddOrderComponent, canActivate:[MainAppGuard] },
+  { 'path':'orders/details/:id', component: OrderDetailsComponent, canActivate:[MainAppGuard] },
+  { 'path':'orders', component: OrdersComponent, canActivate:[MainAppGuard] },
+  { 'path':'notifications', component: NotificationsComponent, canActivate:[MainAppGuard] },
   { 'path':'', redirectTo:'/login', pathMatch: "full" },
   { 'path':'**', redirectTo:'/login', pathMatch: "full" }
 ]
