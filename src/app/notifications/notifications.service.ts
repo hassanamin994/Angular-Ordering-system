@@ -17,12 +17,20 @@ export class NotificationsService extends HeadersClass{
     // this.socket.on('notify_user',)
   }
   notify(obj){ this.socket.emit('notify', obj) }
-  disconnect(user_id){ this.socket.emit('disconnect', user_id) }
-  join(user_id){ this.socket.emit('join', user_id) }
+  disconnect(user_id){ this.socket.emit('logout', user_id) }
+  join(accesstoken){ this.socket.emit('join', accesstoken) }
   // respondeInvitation(obj){ this.socket.emit('respondeInvitation', obj) }
 
-  sendInvitation(obj:any){
+  sendNotification(obj:any){
     return this.http.post(this.apiRouter.getNotificationsRoute(),obj,this.options)
+			.map((response: Response) => response.json());
+  }
+  updateNotification(obj: any,noti_id:any){
+    return this.http.put(this.apiRouter.getNotificationsRoute()+"/"+noti_id,obj,this.options)
+			.map((response: Response) => response.json());
+  }
+  updateToSeen(){
+    return this.http.put(this.apiRouter.getNotificationsRoute()+"/",{},this.options)
 			.map((response: Response) => response.json());
   }
   getNotification() {
