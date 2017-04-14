@@ -8,7 +8,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class NotificationsService extends HeadersClass{
-  private url = 'http://localhost:8090';
+  private url = 'http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com';
   private socket;
 
   constructor(private http: Http, private apiRouter: ApiRouterService) {

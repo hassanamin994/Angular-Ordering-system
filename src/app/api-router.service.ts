@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiRouterService {
   private auth = {
-		registeration: "http://localhost:8090/auth/register",
-		login: "http://localhost:8090/auth/login"
+		registeration: "http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/auth/register",
+		login: "http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/auth/login"
 	}
-  private users = "http://localhost:8090/user"
-  private groups = "http://localhost:8090/group";
-  private orders = "http://localhost:8090/order";
+  private users = "http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/user"
+  private groups = "http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/group";
+  private orders = "http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/order";
   constructor() { }
 
-  private friends = "http://localhost:8090/friends";
-  private notifications = "http://localhost:8090/notification"
+  private friends = "http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/friends";
+  private notifications = "http://Sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/notification"
 	public getRegisterationRoute(){
 		return this.auth.registeration ;
 	}
