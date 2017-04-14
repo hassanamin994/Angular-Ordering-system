@@ -27,6 +27,12 @@ export class LocalstorageService {
   public removeData(){
     localStorage.removeItem('data');
   }
+  public getProfilePic(){
+    return this.getData().profile ; 
+  }
+  public getUsername(){
+    return this.getData().name;
+  }
   public isLoggedIn(){
     return localStorage.getItem('access_token') != null ;
   }

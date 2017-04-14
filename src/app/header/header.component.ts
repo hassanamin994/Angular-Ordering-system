@@ -12,6 +12,7 @@ import { LocalstorageService } from '../localstorage.service';
 })
 export class HeaderComponent implements OnInit {
   username = "";
+  imageURL = "" ;
   noOfNotifications = 0;
   notifications = []
   constructor(private ordersService: OrdersService, private notificationsService: NotificationsService, private router: Router, private localStorageService: LocalstorageService) {
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit {
       console.log('error notification')
       console.log(err)
     })
-    this.username = "Hassan Mohammed";
+    this.username = localStorageService.getUsername();
+    this.imageURL = localStorage.getProfilePic();
   	// this.noOfNotifications = 2 ;
   }
 
