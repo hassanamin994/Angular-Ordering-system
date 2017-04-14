@@ -14,7 +14,14 @@ export class OrdersService extends HeadersClass {
 		return this.http.post(this.apiRouter.getOrdersRoute(),order,this.options)
 			.map((response: Response) => response.json());
 	}
-
+  // sendInvitation(noti: any){
+  //   return this.http.post(this.apiRouter.getNotificationsRoute(),noti,this.options)
+	// 		.map((response: Response) => response.json());
+  // }
+  joinOrder(id: any){
+    return this.http.put(this.apiRouter.getOrdersRoute()+"/"+id,this.options)
+			.map((response:Response) => response.json());
+  }
 	getOrders(){
 		return this.http.get(this.apiRouter.getOrdersRoute(),this.options)
 			.map((response: Response) => response.json());
