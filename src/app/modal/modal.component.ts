@@ -10,6 +10,7 @@ export class ModalComponent implements OnInit {
   @Input() modalLinkTitle:string = "" ;
   @Input() membersSource = [] ; 
   @Input() buttonName = "";
+  modalId = "id_"+Math.floor(Math.random() * 100);
   @Output() removeUserEmitter: EventEmitter<any> = new EventEmitter(); 
   
   constructor() { }
