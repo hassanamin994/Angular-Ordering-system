@@ -14,7 +14,7 @@
 			<td>{{ meal.item }}</td>
 			<td>{{ meal.amount }}</td>
 			<td>{{ meal.price }}</td>
-			<td>{{ meal.comment }}</td>
+			<td>{{ meal.comment }} <img  src="assets/images/x.png" [hidden]="!isMyMeal(meal.user_id._id)" (click)="deleteMeal(meal._id)" style="cursor:pointer; width:20px"></td>
 		</tr>
 	</tbody>
 </table>

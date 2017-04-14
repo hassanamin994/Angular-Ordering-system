@@ -15,6 +15,9 @@ export class LocalstorageService {
   		localStorage.removeItem('access_token');
   	}
   }
+  public getLoggedUserId(){
+    return this.getData().id;
+  }
   public setData(data: any){
   	localStorage.setItem('data',JSON.stringify(data));
   }

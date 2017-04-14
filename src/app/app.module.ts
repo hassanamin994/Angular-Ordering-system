@@ -31,6 +31,7 @@ import { MealsListComponent } from './orders/order-details/meals-list/meals-list
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HeaderComponent } from './header/header.component';
 import { ModalComponent } from './modal/modal.component';
+import { FacebookModule } from 'ng2-facebook-sdk';
 
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent },
@@ -75,7 +76,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FacebookModule.forRoot()
   ],
   providers: [ ApiRouterService, LocalstorageService , NewGroupUsersService, FileToBase64Service],
   bootstrap: [AppComponent]
