@@ -24,9 +24,32 @@
 	        <li class="dropdown">
 	          <a target="_self" (click)="showNotifications()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="bell"></i><span class="badge">{{ noOfNotifications != 0 ? noOfNotifications:'' }}</span></a>
 	          <ul class="dropdown-menu">
-	            <li><a >Action</a></li>
+							<li *ngFor="let noti of notifications">
+								<div  *ngIf="noti.type == 'action'">
+									<p>
+										{{noti.from.name}} is inviting you to join his order: {{noti.order_id.name}} from {{noti.order_id.restaurant}}
+									</p>
+									<a class="btn btn-xs btn-info" (click)="joinOrder(noti.order_id._id,noti.from._id,noti._id)">Join</a>
+									<a class="btn btn-xs btn-danger" (click)="cancelOrder(noti.order_id._id,noti.from._id,noti._id)">Cancel</a>
+								</div>
+								<div  *ngIf=" noti.type == 'text' ">
+									<span *ngIf=" noti.text == 'accepted' ">
+										{{noti.from.name}} accepted your invitation for {{noti.order_id.name}} order from {{noti.order_id.restaurant}}
+									</span>
+									<span *ngIf=" noti.text == 'joined' ">
+										You joined {{noti.from.name}}'s {{noti.order_id.name}} order from {{noti.order_id.restaurant}}
+									</span>
+									<span *ngIf=" noti.text == 'rejected' ">
+										{{noti.from.name}} rejected your invitation for {{noti.order_id.name}} order from {{noti.order_id.restaurant}}
+									</span>
+									<span *ngIf=" noti.text == 'cancelled' ">
+										You cancelled {{noti.from.name}}'s {{noti.order_id.name}} order from {{noti.order_id.restaurant}}
+									</span>
+								</div>
+							</li>
+	            <!-- <li><a >Action</a></li>
 	            <li><a >Another action</a></li>
-	            <li><a >Something else here</a></li>
+	            <li><a >Something else here</a></li> -->
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">View All Notifications</a></li>
 	          </ul>

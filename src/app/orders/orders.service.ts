@@ -1,4 +1,4 @@
- import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Response ,Headers, RequestOptions} from '@angular/http';
 import { HeadersClass } from '../headers';
 import { ApiRouterService } from '../api-router.service';
@@ -14,7 +14,14 @@ export class OrdersService extends HeadersClass {
 		return this.http.post(this.apiRouter.getOrdersRoute(),order,this.options)
 			.map((response: Response) => response.json());
 	}
-
+  // sendInvitation(noti: any){
+  //   return this.http.post(this.apiRouter.getNotificationsRoute(),noti,this.options)
+	// 		.map((response: Response) => response.json());
+  // }
+  joinOrder(id: any){
+    return this.http.put(this.apiRouter.getOrdersRoute()+"/"+id,this.options)
+			.map((response:Response) => response.json());
+  }
 	getOrders(){
 		return this.http.get(this.apiRouter.getOrdersRoute(),this.options)
 			.map((response: Response) => response.json());
@@ -25,6 +32,6 @@ export class OrdersService extends HeadersClass {
 	}
 	cancelOrder(id: any){
 		return this.http.delete(this.apiRouter.getOrdersRoute()+"/"+id,this.options)
-			.map((response:Response) => response.json());	
+			.map((response:Response) => response.json());
 	}
 }

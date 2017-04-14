@@ -30,6 +30,7 @@ import { OrderDetailsComponent } from './orders/order-details/order-details.comp
 import { MealsListComponent } from './orders/order-details/meals-list/meals-list.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { HeaderComponent } from './header/header.component';
+import { NotificationsAllComponent } from './notifications-all/notifications-all.component';
 import { ModalComponent } from './modal/modal.component';
 import { MainAppGuard } from './main-app.guard';
 const appRoutes: Routes = [
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     MealsListComponent,
     NotificationsComponent,
     HeaderComponent,
+    NotificationsAllComponent,
     ModalComponent,
   ],
   imports: [
