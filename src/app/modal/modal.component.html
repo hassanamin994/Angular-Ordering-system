@@ -1,8 +1,8 @@
 <!-- Trigger the modal with a button -->
-<a style="cursor:pointer;" data-toggle="modal" data-target="#myModal">{{ modalLinkTitle }}</a>
+<a style="cursor:pointer;" data-toggle="modal" [attr.data-target]="'#'+modalId">{{ modalLinkTitle }}</a>
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="{{ modalId }}" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->

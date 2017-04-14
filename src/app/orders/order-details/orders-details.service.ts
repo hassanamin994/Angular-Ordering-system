@@ -10,15 +10,16 @@ export class OrdersDetailsService extends HeadersClass{
   	super() ;
   }
 
-  getOrder(id: number){
-  	return this.http.get(this.apiRouter.getOrdersRoute()+"/"+id, this.options)
+  getOrder(orderId: number){
+  	return this.http.get(this.apiRouter.getOrdersRoute()+"/"+orderId, this.options)
   		.map((response: Response) => response.json() );
   }
-  deleteMeal(id: number){
-
+  deleteMeal(orderId: any, mealId: number){
+    return this.http.delete(this.apiRouter.getOrdersRoute()+"/"+orderId+"/meal/"+mealId, this.options)
+      .map((response: Response) => response.json() ); 
   }
-  addMeal(id: number, meal:any){
-  	return this.http.post(this.apiRouter.getOrdersRoute()+"/"+id+"/meal", meal, this.options)
+  addMeal(orderId: number, meal:any){
+  	return this.http.post(this.apiRouter.getOrdersRoute()+"/"+orderId+"/meal", meal, this.options)
   		.map((response: Response) => response.json() );  	
   }
   getOrderMembers(groupId: any){

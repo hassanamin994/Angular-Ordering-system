@@ -10,7 +10,7 @@
 		<!-- End Invited Members -->
 		<br>
 		<!-- Joined Members  -->
-			<app-modal (removeUserEmitter) = "removeUser($event)" [buttonName]="buttonName" [membersSource] = " order.joined_members " [title]=" joinedFriendsTitle " [modalLinkTitle] = "joinedFriends_modalLinkTitle" ></app-modal>
+			<app-modal (removeUserEmitter) = "removeUser($event)" [buttonName]="buttonName" [membersSource] = " joinedMembers " [title]=" joinedFriendsTitle " [modalLinkTitle] = "joinedFriends_modalLinkTitle" ></app-modal>
 		<!-- End Joined Members -->
 		</div>	
 	</div>

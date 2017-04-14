@@ -16,10 +16,11 @@ export class OrderDetailsComponent implements OnInit {
 	}
 
 	errors = [] ;
-	groupId ; 
+	orderId ; 
   order = {}; 
   buttonName = "remove";
   orderMembers = [] ;
+  joinedMembers = [] ;
   invitedFriends_Title = "Invited Friends";
   invitedFriends_modalLinkTitle = " 10 friends invited, click to view! ";
 
@@ -31,22 +32,25 @@ export class OrderDetailsComponent implements OnInit {
   ngOnInit() {
   	// get group id from route 
   	this.activatedRoute.params.subscribe((params: any ) => {
-  		this.groupId = params['id'];
+  		this.orderId = params['id'];
   	})
 	// get meals list and assign it 
-	this.ordersDetailsService.getOrder(this.groupId).subscribe(
-			(response: any) => {
-			console.log(response)
-			if(response.status){
-				// do logic 
-				this.setOrderInfo(response.order);
-			}else{
-				this.router.navigate(['/orders'])
-			}
-		})
+   this.getOrder();
 
   }
 
+  getOrder(){
+      this.ordersDetailsService.getOrder(this.orderId).subscribe(
+      (response: any) => {
+      console.log(response)
+      if(response.status){
+        // do logic 
+        this.setOrderInfo(response.order);
+      }else{
+        this.router.navigate(['/orders'])
+      }
+    })
+  }
   validateItem(): Array<string>{
 		let errors = [] ;
 		if(this.item.item.trim() == "")
@@ -80,24 +84,26 @@ export class OrderDetailsComponent implements OnInit {
       this.getOrderMembers(order.invited_group._id);
       this.invitedFriends_modalLinkTitle = order.invited_group.members.length+' friend invited, click to view!'
     }
-
+    this.joinedMembers = order.joined_members ;
     this.joinedFriends_modalLinkTitle = order.joined_members.length+' friend joined, click to view!'
     console.log(this.joinedFriends_modalLinkTitle)
   }
   getOrderMembers(id: any){
     this.ordersDetailsService.getOrderMembers(id).subscribe(
         (response: any) =>{
+          if(response.status){
+            this.orderMembers = response.group.members ;
+          }
           console.log(response, 'order members ');
         }
       )
   }
   sendItem(item: any){
   	item = {item: item.item, amount: item.amount.toString(), price: item.price.toString(), comment: item.comment }
-  	this.ordersDetailsService.addMeal(this.groupId, item).subscribe(
+  	this.ordersDetailsService.addMeal(this.orderId, item).subscribe(
   		(response: any) => {
-  			console.log(response)
   			if(response.status){
-  				this.setOrderInfo(response.order);
+  				this.getOrder();
   			}	
   		}
   		);
