@@ -15,8 +15,11 @@ export class ActivitiesListComponent implements OnInit {
     this.setLatestActivities();
   }
   setLatestActivities(){
+
     this.latestService.getLatestActivities().subscribe(
       (activities: any) => {
+        console.log("get latest activities: ")
+        console.log(activities)
         this.activities = activities.new_Orders.concat(activities.joined_Orders).sort(this.mySort('date'));
       }
     )

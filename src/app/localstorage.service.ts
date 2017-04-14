@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LocalstorageService {
-  
+
   constructor() { }
   public setAccessToken(token: string){
   	localStorage.setItem('access_token', token) ;
