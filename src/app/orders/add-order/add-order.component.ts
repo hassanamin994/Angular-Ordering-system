@@ -100,7 +100,8 @@ export class AddOrderComponent implements OnInit {
 			name: this.order.for,
 			restaurant: this.order.resturantname,
 			invited_type: this.order.invite ,
-			invited_id: this.order.members
+			invited_id: this.order.members,
+			menu: this.order.menu
 		 }
 
 		this.ordersService.addOrder(JSON.stringify(orderObj)).subscribe(
