@@ -19,7 +19,7 @@ export class OrdersService extends HeadersClass {
 	// 		.map((response: Response) => response.json());
   // }
   joinOrder(id: any){
-    return this.http.put(this.apiRouter.getOrdersRoute()+"/"+id,this.options)
+    return this.http.put(this.apiRouter.getOrdersRoute()+"/"+id,{},this.options)
 			.map((response:Response) => response.json());
   }
 	getOrders(){
@@ -27,7 +27,7 @@ export class OrdersService extends HeadersClass {
 			.map((response: Response) => response.json());
 	}
 	checkoutOrder(id: any){
-		return this.http.put(this.apiRouter.getOrdersRoute()+"/finish/"+id,this.options)
+		return this.http.put(this.apiRouter.getOrdersRoute()+"/finish/"+id,{},this.options)
 			.map((response:Response) => response.json());
 	}
 	cancelOrder(id: any){

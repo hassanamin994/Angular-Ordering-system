@@ -11,6 +11,7 @@ export class HeadersClass{
 		    const headers = new Headers() ;
 		    headers.append('Content-Type','application/json');
 		    headers.append('authorization',this.access_token);
+		    console.log(this.access_token,'access token ');
 		    this.options = new RequestOptions({headers: headers});
 		    console.log('calling headers class')
 		}

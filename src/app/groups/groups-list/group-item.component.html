@@ -5,7 +5,7 @@
 	<div [hidden]="hiddenControls">
 		
 		<div class="col-xs-3">
-			<img src="assets/images/profile.png" style="cursor: pointer;" class="img-responsive" (click)="viewGroup(group._id)">
+			<app-modal (removeUserEmitter) = "removeUser($event)" [buttonName]="buttonName" [membersSource] = " groupMembers " [title]=" title " [modalLinkTitle] = "modalLinkTitle" (click)="viewGroup(group._id)" ></app-modal>
 		</div>
 		<div class="col-xs-3">
 			<img src="assets/images/x.png" style="cursor: pointer;" class="img-responsive" (click)="deleteGroup(group._id)">

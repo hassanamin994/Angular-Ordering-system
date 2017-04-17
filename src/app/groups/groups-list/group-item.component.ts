@@ -10,13 +10,23 @@ import { GroupsService } from '../groups.service';
 export class GroupItemComponent implements OnInit {
   @Input() group : any ; 
   @Input() hiddenControls: boolean = true ;
-  constructor(private groupService: GroupsService, private localStorageService: LocalstorageService) { }
 
+  title:string = "Group" ;
+  modalLinkTitle:string = "Members" ;
+  buttonName = "remove";
+  constructor(private groupService: GroupsService, private localStorageService: LocalstorageService) { }
+  groupMembers = [] 
   ngOnInit() {
   }
 
   viewGroup(g: number){
-    console.log('edit/view',g)
+    this.groupService.getGroup(g).subscribe(
+      (response:any ) => {
+        if(response.status)
+          this.groupMembers = response.group.members;
+          this.title = "Group" + response.group.name;
+      }
+      )  
   }
   deleteGroup(g: number){
   	this.groupService.deleteGroup(g).subscribe(

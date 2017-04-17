@@ -29,7 +29,8 @@ export class HeaderComponent implements OnInit {
       console.log(err)
     })
     this.username = localStorageService.getUsername();
-    this.imageURL = localStorage.getProfilePic();
+    this.imageURL = localStorageService.getProfilePic();
+    console.log(this.imageURL)
   	// this.noOfNotifications = 2 ;
   }
 

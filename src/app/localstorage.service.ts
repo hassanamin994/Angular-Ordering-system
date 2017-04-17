@@ -28,7 +28,10 @@ export class LocalstorageService {
     localStorage.removeItem('data');
   }
   public getProfilePic(){
-    return this.getData().profile ; 
+    return "http://sample-env.ccipqw5fip.us-west-1.elasticbeanstalk.com/"+this.getData().profile ; 
+  }
+  public test(){
+    return true ;
   }
   public getUsername(){
     return this.getData().name;
