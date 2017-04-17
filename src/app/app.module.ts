@@ -33,10 +33,11 @@ import { HeaderComponent } from './header/header.component';
 import { NotificationsAllComponent } from './notifications-all/notifications-all.component';
 import { ModalComponent } from './modal/modal.component';
 import { MainAppGuard } from './main-app.guard';
+import { AuthGuard } from './auth.guard';
 const appRoutes: Routes = [
   { 'path':'home', component: HomeComponent, canActivate:[MainAppGuard] },
-  { 'path':'login', component: LoginComponent },
-  { 'path':'registration', component: RegisterationComponent },
+  { 'path':'login', component: LoginComponent, canActivate:[AuthGuard] },
+  { 'path':'registration', component: RegisterationComponent, canActivate:[AuthGuard] },
   { 'path':'groups', component: GroupsComponent, canActivate:[MainAppGuard] },
   { 'path':'friends', component: FriendsComponent, canActivate:[MainAppGuard] },
   { 'path':'orders/add', component: AddOrderComponent, canActivate:[MainAppGuard] },
@@ -79,7 +80,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [ ApiRouterService, LocalstorageService , NewGroupUsersService, FileToBase64Service, MainAppGuard],
+  providers: [ ApiRouterService, LocalstorageService , NewGroupUsersService, FileToBase64Service, MainAppGuard, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
